@@ -3,12 +3,12 @@ KISSY.add(function(S){
         E = S.Event,
         debugEle, aVars=[];
 
-    function KMobileConsole() {
-        this.init();
+    function KMobileConsole(pc) {
+        this.init(pc);
     }
 
     KMobileConsole.prototype = {
-        init: function(){
+        init: function(pc){
             var self = this,
                 orientation = 0;
             debugEle = D.create('<div>');
@@ -36,8 +36,10 @@ KISSY.add(function(S){
                     }
 
                     //PC上测试
-                    // window.scrollTo(1,1);
-                    // self.showDebugInfo();
+                    if(pc === 'pc'){
+                        window.scrollTo(1,1);
+                        self.showDebugInfo();
+                    }
 
                     horientation = window.orientation;
             });
@@ -217,7 +219,7 @@ KISSY.add(function(S){
             }else{
                 var objNode = D.create('<div>'),
                     arrow = D.create('<span>');
-                D.append(D.create('▶  Object'), arrow);
+                D.append(D.create('>>  Object'), arrow);
                 D.css(arrow, {color:'#808080', fontSize:'12px'});
                 D.append(arrow, objNode);
                 D.css(objNode, 'display', 'inline');
@@ -226,7 +228,7 @@ KISSY.add(function(S){
                 E.on(objNode, 'click', function(evt){
                     if(this.expanded){
                         // TODO
-                        this.firstChild.textContent = "▶  Object";
+                        this.firstChild.textContent = ">>  Object";
                         while(this.childNodes.length >1){
                             this.removeChild(this.lastChild);
                         }
